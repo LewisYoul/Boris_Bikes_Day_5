@@ -84,7 +84,7 @@ describe DockingStation do
 
   end
 
-  describe '#empty?'
+  describe '#empty?' do
 
     it 'should respond to the empty? method' do
       station = DockingStation.new
@@ -101,4 +101,5 @@ describe DockingStation do
       20.times { station.dock(Bike.new) }
       expect(station.empty?).to eq(false)
     end
+  end
 end
