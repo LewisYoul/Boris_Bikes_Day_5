@@ -29,4 +29,12 @@ class DockingStation
     end
   end
 
+  def empty?
+    if @docked_bikes.empty?
+      true
+    else
+      false
+    end
+  end
+
 end
