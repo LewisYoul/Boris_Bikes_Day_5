@@ -17,6 +17,7 @@ describe DockingStation do
       expect(station).to respond_to(:dock).with(1).argument
     end
   end
+
   describe "#docked_bikes" do
 
     it 'respond to docked_bikes' do
@@ -28,14 +29,14 @@ describe DockingStation do
       station = DockingStation.new
       test_bike = Bike.new
       station.dock(test_bike)
-      expect(station.docked_bikes).to eq(test_bike)
+      expect(station.docked_bikes).to eq([test_bike])
     end
 
     it 'checks that station.docked_bikes is an instance_of Bike'do
       station = DockingStation.new
       bike = Bike.new
       station.dock(bike)
-      expect(station.docked_bikes).to be_an_instance_of(Bike)
+      expect(station.docked_bikes.first).to be_an_instance_of(Bike)
     end
 
     it 'should raise an error if release_bike is requested and docked_bikes is empty' do
@@ -43,11 +44,12 @@ describe DockingStation do
       expect { station.release_bike }.to raise_error("no bikes in dock")
     end
 
-    it "should raise an error if docked_bikes has one bike in" do
+    it "should raise an error if docked_bikes is at capacity of 20" do
       station = DockingStation.new
-      test_bike = Bike.new
-      station.dock(test_bike)
-      expect { station.dock(Bike.new) }.to raise_error("one bike already in dock")
+      20.times { station.dock(Bike.new) }
+      p station.docked_bikes
+      p station.docked_bikes.length
+      expect { station.dock(Bike.new) }.to raise_error("twenty bikes already in dock")
     end
 
   end
