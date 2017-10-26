@@ -6,7 +6,7 @@ class DockingStation
   end
 
   def release_bike
-    if @docked_bikes.empty?
+    if empty?
       fail "no bikes in dock"
     else
       @docked_bikes
