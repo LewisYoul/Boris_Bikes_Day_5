@@ -44,9 +44,9 @@ describe DockingStation do
       expect { station.release_bike }.to raise_error("no bikes in dock")
     end
 
-    it "should raise an error if docked_bikes is at capacity of 20" do
+    it "should raise an error if docked_bikes is at DEFAULT_CAPACITY" do
       station = DockingStation.new
-      20.times { station.dock(Bike.new) }
+      DockingStation::DEFAULT_CAPACITY.times { station.dock(Bike.new) }
       expect { station.dock(Bike.new) }.to raise_error("twenty bikes already in dock")
     end
 
@@ -56,7 +56,7 @@ describe DockingStation do
 
     it 'should return docked_bikes is full fail error when full? == true' do
       station = DockingStation.new
-      20.times { station.dock(Bike.new) }
+      DockingStation::DEFAULT_CAPACITY.times { station.dock(Bike.new) }
       expect { station.dock(Bike.new) }.to raise_error("twenty bikes already in dock")
     end
 
@@ -82,4 +82,13 @@ describe DockingStation do
       expect { station.release_bike }.to raise_error("no bikes in dock")
     end
   end
+
+  describe "#Magic Number" do
+
+    it "should have a Default Value of 20" do
+      expect(DockingStation::DEFAULT_CAPACITY).to eq 20
+    end
+
+  end
+
 end
