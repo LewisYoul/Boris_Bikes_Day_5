@@ -1,19 +1,23 @@
 class DockingStation
   attr_reader :docked_bikes
 
+  def initialize
+    @docked_bikes = []
+  end
+
   def release_bike
-    if @docked_bikes != nil
-      @docked_bikes
-    else
+    if @docked_bikes.empty?
       fail "no bikes in dock"
+    else
+      @docked_bikes
     end
   end
 
   def dock(arg)
-    if @docked_bikes != nil
-      fail "one bike already in dock"
+    if @docked_bikes.length >= 20
+      fail "twenty bikes already in dock"
     else
-      @docked_bikes = arg
+      @docked_bikes << arg
     end
   end
 
