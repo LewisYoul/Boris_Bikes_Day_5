@@ -91,4 +91,18 @@ describe DockingStation do
 
   end
 
+  describe "#capacity" do
+
+    it "DockingStation should set a DEFAULT_CAPACITY of 20 to capacity, when no argument is given" do
+      station = DockingStation.new
+      expect(station.capacity).to eq(20)
+    end
+
+    it "DockingStation should except an integer argument for capacity" do
+      station = DockingStation.new (50)
+      expect(station).to respond_to(:capacity)
+    end
+
+  end
+
 end
