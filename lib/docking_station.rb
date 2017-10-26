@@ -14,10 +14,18 @@ class DockingStation
   end
 
   def dock(arg)
-    if @docked_bikes.length >= 20
+    if full?
       fail "twenty bikes already in dock"
     else
       @docked_bikes << arg
+    end
+  end
+
+  def full?
+    if @docked_bikes.length >= 20
+      true
+    else
+      false
     end
   end
 
