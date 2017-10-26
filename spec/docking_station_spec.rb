@@ -101,5 +101,17 @@ describe DockingStation do
       20.times { station.dock(Bike.new) }
       expect(station.empty?).to eq(false)
     end
+
+    it 'should release a bike when empty? is false' do
+      station = DockingStation.new
+      bike = Bike.new
+      station.dock(bike)
+      expect(station.release_bike).to eq([bike])
+    end
+
+    it 'should raise error when empty? is true' do
+      station = DockingStation.new
+      expect { station.release_bike }.to raise_error("no bikes in dock")
+    end
   end
 end
