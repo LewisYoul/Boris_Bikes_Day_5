@@ -20,14 +20,17 @@ describe DockingStation do
      expect(station).to respond_to(:dock).with(1).argument
    end
 
-   it 'checks if @docked_bikes is an array' do
-     expect(station.docked_bikes).to be_instance_of(Array)
-   end
+  it "checks if station.docked_bikes is eq to a Bike" do
+    test_bike = Bike.new
+    station.dock(test_bike)
+    p "here!!!!!", station.docked_bikes
+    expect(station.docked_bikes).to eq(test_bike)
+  end
 
-   it 'checks that @docked_bikes is an instance_of Bike'do
+   it 'checks that station.docked_bikes is an instance_of Bike'do
      bike = Bike.new
      station.dock(bike)
-     expect(station.docked_bikes.last).to be_an_instance_of(Bike)
+     expect(station.docked_bikes).to be_an_instance_of(Bike)
    end
 
 end
