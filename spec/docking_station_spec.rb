@@ -54,22 +54,6 @@ describe DockingStation do
 
   describe "#full" do
 
-    it 'should respond to full?' do
-      station = DockingStation.new
-      expect(station).to respond_to(:full?)
-    end
-
-    it 'should return true when docked_bikes is full' do
-      station = DockingStation.new
-      20.times { station.dock(Bike.new) }
-      expect(station.full?).to eq(true)
-    end
-
-    it 'should return false when docked_bikes is under capacity' do
-      station = DockingStation.new
-      expect(station.full?).to eq(false)
-    end
-
     it 'should return docked_bikes is full fail error when full? == true' do
       station = DockingStation.new
       20.times { station.dock(Bike.new) }
@@ -85,22 +69,6 @@ describe DockingStation do
   end
 
   describe '#empty?' do
-
-    it 'should respond to the empty? method' do
-      station = DockingStation.new
-      expect(station).to respond_to(:empty?)
-    end
-
-    it 'should return true when empty? == true' do
-      station = DockingStation.new
-      expect(station.empty?).to eq(true)
-    end
-
-    it 'should return false when empty? == false' do
-      station = DockingStation.new
-      20.times { station.dock(Bike.new) }
-      expect(station.empty?).to eq(false)
-    end
 
     it 'should release a bike when empty? is false' do
       station = DockingStation.new

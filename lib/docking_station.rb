@@ -21,20 +21,21 @@ class DockingStation
     end
   end
 
-  def full?
-    if @docked_bikes.length >= 20
-      true
-    else
-      false
+  private
+    def full?
+      if @docked_bikes.length >= 20
+        true
+      else
+        false
+      end
     end
-  end
 
-  def empty?
-    if @docked_bikes.empty?
-      true
-    else
-      false
+    def empty?
+      if @docked_bikes.empty?
+        true
+      else
+        false
+      end
     end
-  end
 
 end
