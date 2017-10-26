@@ -84,4 +84,21 @@ describe DockingStation do
 
   end
 
+  describe '#empty?'
+
+    it 'should respond to the empty? method' do
+      station = DockingStation.new
+      expect(station).to respond_to(:empty?)
+    end
+
+    it 'should return true when empty? == true' do
+      station = DockingStation.new
+      expect(station.empty?).to eq(true)
+    end
+
+    it 'should return false when empty? == false' do
+      station = DockingStation.new
+      20.times { station.dock(Bike.new) }
+      expect(station.empty?).to eq(false)
+    end
 end
