@@ -10,7 +10,11 @@ class DockingStation
   end
 
   def dock(arg)
-    @docked_bikes = arg
+    if @docked_bikes != nil
+      fail "one bike already in dock"
+    else
+      @docked_bikes = arg
+    end
   end
 
 end
