@@ -47,9 +47,39 @@ describe DockingStation do
     it "should raise an error if docked_bikes is at capacity of 20" do
       station = DockingStation.new
       20.times { station.dock(Bike.new) }
-      p station.docked_bikes
-      p station.docked_bikes.length
       expect { station.dock(Bike.new) }.to raise_error("twenty bikes already in dock")
+    end
+
+  end
+
+  describe "#full" do
+
+    it 'should respond to full?' do
+      station = DockingStation.new
+      expect(station).to respond_to(:full?)
+    end
+
+    it 'should return true when docked_bikes is full' do
+      station = DockingStation.new
+      20.times { station.dock(Bike.new) }
+      expect(station.full?).to eq(true)
+    end
+
+    it 'should return false when docked_bikes is under capacity' do
+      station = DockingStation.new
+      expect(station.full?).to eq(false)
+    end
+
+    it 'should return docked_bikes is full fail error when full? == true' do
+      station = DockingStation.new
+      20.times { station.dock(Bike.new) }
+      expect { station.dock(Bike.new) }.to raise_error("twenty bikes already in dock")
+    end
+
+    it 'should dock a bike if full? == false' do
+      station = DockingStation.new
+      station.dock(Bike.new)
+      expect(station.docked_bikes.first).to be_an_instance_of(Bike)
     end
 
   end
