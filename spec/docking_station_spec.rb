@@ -69,7 +69,7 @@ describe DockingStation do
       station = DockingStation.new
       bike = Bike.new
       station.dock(bike)
-      expect(station.release_bike).to eq([bike, true])
+      expect(station.release_bike).to eq(bike)
     end
 
     it 'should raise error when empty? is true' do
@@ -104,8 +104,10 @@ describe DockingStation do
     it "should not return a broken bike" do
       station = DockingStation.new
       broken = Bike.new(false)
+      working = Bike.new
+      station.dock(working)
       station.dock(broken)
-      expect(station.release_bike).not_to eq([broken, false])
+      expect(station.release_bike).not_to eq(broken)
 
     end
   end
