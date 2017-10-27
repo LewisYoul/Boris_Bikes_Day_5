@@ -1,5 +1,10 @@
 require 'docking_station'
 require 'bike'
+class FakeBike
+  def working?
+    true
+  end
+end
 
 describe DockingStation do
   it { is_expected.to respond_to(:release_bike) }
@@ -28,14 +33,14 @@ describe DockingStation do
 
     it "checks if station.docked_bikes is eq to a Bike" do
       station = DockingStation.new
-      test_bike = Bike.new
+      test_bike = double(:bike)
       station.dock(test_bike)
       expect(station.docked_bikes[0][0]).to eq(test_bike)
     end
 
     it 'checks that station.docked_bikes is an instance_of Bike'do
       station = DockingStation.new
-      bike = Bike.new
+      bike = double(:bike)
       station.dock(bike)
       expect(station.docked_bikes.first).to eq([bike, true])
     end
@@ -47,8 +52,8 @@ describe DockingStation do
 
     it "should raise an error if docked_bikes is at DEFAULT_CAPACITY" do
       station = DockingStation.new
-      DockingStation::DEFAULT_CAPACITY.times { station.dock(Bike.new) }
-      expect { station.dock(Bike.new) }.to raise_error("twenty bikes already in dock")
+      DockingStation::DEFAULT_CAPACITY.times { station.dock(double(:bike)) }
+      expect { station.dock(double(:bike)) }.to raise_error("twenty bikes already in dock")
     end
 
   end
@@ -57,8 +62,8 @@ describe DockingStation do
 
     it 'should return docked_bikes is full fail error when full? == true' do
       station = DockingStation.new
-      DockingStation::DEFAULT_CAPACITY.times { station.dock(Bike.new) }
-      expect { station.dock(Bike.new) }.to raise_error("twenty bikes already in dock")
+      DockingStation::DEFAULT_CAPACITY.times { station.dock(double(:bike)) }
+      expect { station.dock(double(:bike)) }.to raise_error("twenty bikes already in dock")
     end
 
   end
@@ -67,7 +72,7 @@ describe DockingStation do
 
     it 'should release a bike when empty? is false' do
       station = DockingStation.new
-      bike = Bike.new
+      bike = double(:bike)
       station.dock(bike)
       expect(station.release_bike).to eq(bike)
     end
@@ -104,7 +109,7 @@ describe DockingStation do
 
     it "should raise an error if all bikes are broken" do
       station = DockingStation.new
-      bike = Bike.new(false)
+      bike = double(:bike)#false
       station.dock(bike)
       expect { station.release_bike }.to raise_error("no bikes in dock")
     end
