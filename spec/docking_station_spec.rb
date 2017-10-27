@@ -8,9 +8,6 @@ let(:bike) { double("bike", :working? => true) }
   it { is_expected.to respond_to(:release_bike) }
 
   describe "#dock" do
-    it 'responds to dock' do
-      expect(station).to respond_to(:dock)
-    end
 
     it 'checks if dock receives one argument' do
       expect(station).to respond_to(:dock).with(1).argument
