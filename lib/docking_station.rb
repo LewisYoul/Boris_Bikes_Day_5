@@ -12,7 +12,9 @@ class DockingStation
     if empty?
       fail "no bikes in dock"
     else
-      @docked_bikes.first
+      bike = @docked_bikes.find { |n| n[1] == true }
+      @docked_bikes.delete(bike)
+      bike[0]
     end
   end
 
