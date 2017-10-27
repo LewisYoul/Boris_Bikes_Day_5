@@ -101,14 +101,12 @@ describe DockingStation do
   end
 
   describe "#release_bike" do
-    it "should not return a broken bike" do
-      station = DockingStation.new
-      broken = Bike.new(false)
-      working = Bike.new
-      station.dock(working)
-      station.dock(broken)
-      expect(station.release_bike).not_to eq(broken)
 
+    it "should raise an error if all bikes are broken" do
+      station = DockingStation.new
+      bike = Bike.new(false)
+      station.dock(bike)
+      expect { station.release_bike }.to raise_error("no bikes in dock")
     end
   end
 
