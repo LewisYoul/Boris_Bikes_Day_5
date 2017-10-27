@@ -11,6 +11,8 @@ class DockingStation
   def release_bike
     if empty?
       fail "no bikes in dock"
+    elsif @docked_bikes.any? { |n| !n[1] == true }
+      fail "no bikes in dock"
     else
       bike = @docked_bikes.find { |n| n[1] == true }
       @docked_bikes.delete(bike)
