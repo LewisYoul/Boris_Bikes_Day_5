@@ -1,4 +1,5 @@
 require 'docking_station'
+require 'bike'
 
 describe DockingStation do
   it { is_expected.to respond_to(:release_bike) }
@@ -29,14 +30,14 @@ describe DockingStation do
       station = DockingStation.new
       test_bike = Bike.new
       station.dock(test_bike)
-      expect(station.docked_bikes).to eq([test_bike])
+      expect(station.docked_bikes[0][0]).to eq(test_bike)
     end
 
     it 'checks that station.docked_bikes is an instance_of Bike'do
       station = DockingStation.new
       bike = Bike.new
       station.dock(bike)
-      expect(station.docked_bikes.first).to be_an_instance_of(Bike)
+      expect(station.docked_bikes.first).to eq([bike, true])
     end
 
     it 'should raise an error if release_bike is requested and docked_bikes is empty' do
@@ -60,12 +61,6 @@ describe DockingStation do
       expect { station.dock(Bike.new) }.to raise_error("twenty bikes already in dock")
     end
 
-    it 'should dock a bike if full? == false' do
-      station = DockingStation.new
-      station.dock(Bike.new)
-      expect(station.docked_bikes.first).to be_an_instance_of(Bike)
-    end
-
   end
 
   describe '#empty?' do
@@ -74,7 +69,7 @@ describe DockingStation do
       station = DockingStation.new
       bike = Bike.new
       station.dock(bike)
-      expect(station.release_bike).to eq([bike])
+      expect(station.release_bike).to eq([bike, true])
     end
 
     it 'should raise error when empty? is true' do
@@ -103,6 +98,16 @@ describe DockingStation do
       expect(station).to respond_to(:capacity)
     end
 
+  end
+
+  describe "#release_bike" do
+    it "should not return a broken bike" do
+      station = DockingStation.new
+      broken = Bike.new(false)
+      station.dock(broken)
+      expect(station.release_bike).not_to eq([broken, false])
+
+    end
   end
 
 end

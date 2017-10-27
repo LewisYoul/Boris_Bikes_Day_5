@@ -12,15 +12,17 @@ class DockingStation
     if empty?
       fail "no bikes in dock"
     else
-      @docked_bikes
+      @docked_bikes.first
     end
   end
 
   def dock(arg)
     if full?
       fail "twenty bikes already in dock"
+    elsif arg.working? == true
+      @docked_bikes << [arg, true]
     else
-      @docked_bikes << arg
+      @docked_bikes << [arg, false]
     end
   end
 
