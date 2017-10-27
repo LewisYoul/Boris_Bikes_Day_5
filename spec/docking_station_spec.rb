@@ -2,8 +2,8 @@ require 'docking_station'
 
 describe DockingStation do
 
-let(:bike) { double :bike }
 subject(:station) { DockingStation.new }
+let(:bike) { double("bike", :working? => true) }
 
   it { is_expected.to respond_to(:release_bike) }
 
@@ -24,13 +24,12 @@ subject(:station) { DockingStation.new }
     end
 
     it "checks if station.docked_bikes is eq to a Bike" do
-      allow(bike).to receive(:working?).and_return(true)
+      #allow(bike).to receive(:working?).and_return(true)
       station.dock(bike)
       expect(station.docked_bikes[0][0]).to eq(bike)
     end
 
     it 'checks that station.docked_bikes is an instance_of Bike'do
-      bike = double(:bike)
       station.dock(bike)
       expect(station.docked_bikes.first).to eq([bike, true])
     end
@@ -40,8 +39,8 @@ subject(:station) { DockingStation.new }
     end
 
     it "should raise an error if docked_bikes is at DEFAULT_CAPACITY" do
-      DockingStation::DEFAULT_CAPACITY.times { station.dock(double(:bike)) }
-      expect { station.dock(double(:bike)) }.to raise_error("twenty bikes already in dock")
+      DockingStation::DEFAULT_CAPACITY.times { station.dock(bike) }
+      expect { station.dock(bike) }.to raise_error("twenty bikes already in dock")
     end
 
   end
@@ -49,8 +48,8 @@ subject(:station) { DockingStation.new }
   describe "#full" do
 
     it 'should return docked_bikes is full fail error when full? == true' do
-      DockingStation::DEFAULT_CAPACITY.times { station.dock(double(:bike)) }
-      expect { station.dock(double(:bike)) }.to raise_error("twenty bikes already in dock")
+      DockingStation::DEFAULT_CAPACITY.times { station.dock(bike) }
+      expect { station.dock(bike) }.to raise_error("twenty bikes already in dock")
     end
 
   end
@@ -58,7 +57,6 @@ subject(:station) { DockingStation.new }
   describe '#empty?' do
 
     it 'should release a bike when empty? is false' do
-      bike = double(:bike)
       station.dock(bike)
       expect(station.release_bike).to eq(bike)
     end
